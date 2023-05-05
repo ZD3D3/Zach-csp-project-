@@ -1,1 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Title of the document</title>
+</head>
 
+<body>
+The content of the document......
+</body>
+<script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.js"></script>
+<script> 
+
+function setup() {
+  createCanvas(1850,950);
+}
+
+function draw() {
+  if (mouseIsPressed) {
+    fill(240,202,101);
+  } else {
+    fill(50);
+  }
+  ellipse(mouseX, mouseY, 80, 80);
+}
+
+</script>
+
+</html>
