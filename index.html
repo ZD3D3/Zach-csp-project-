@@ -14,14 +14,47 @@ function setup() {
   createCanvas(100,100);
 }
 
-function draw() {
-  if (mouseIsPressed) {
-    fill(240,202,101);
-  } else {
-    fill(100,200,250);
-  }
-  ellipse(mouseX, mouseY, 20, 20);
-}
+
+  background(0, 0, 0);
+var speed = 100;
+
+var generator =  new Random(speed);
+var standardDeviation = 5;
+var mean = 0;
+
+var Walker = function(){
+    this.x = random(width);
+    this.y = random(height);
+};
+
+
+Walker.prototype.display = function(){
+    var randomH = random(0,255);
+    var randomG = random(0,255);
+    var randomI = random(0,255);
+
+    stroke(randomH, randomG, randomI);
+    fill(0, 0, 0);
+    var borderX = constrain(this.x, 100, 300);
+    var borderY = constrain(this.y, 100, 300);
+    rect(borderX,borderY,10,10);
+};
+
+  Walker.prototype.walk = function() {
+        var numX = generator.nextGaussian();
+    var numY = generator.nextGaussian();
+    var xStepSize = standardDeviation  * numX + mean;
+    var yStepSize = standardDeviation * numY + mean;
+  
+    this.x += xStepSize;
+    this.y += yStepSize;
+};
+var walker = new Walker();
+
+draw = function() {
+     walker.walk();
+     walker.display();
+};
 
 </script>
 
