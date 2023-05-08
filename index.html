@@ -1,36 +1,69 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Challenge: Famous discoveries</title>
-    </head>
-    <body>
-    
-    <h1>Famous discoveries</h1>
-    
-    <h2 id="math-heading">Math discoveries</h2>
-    
-    <ul>
-    <li>323–283 BC – Euclid: wrote a series of 13 books on geometry called The Elements</li>
-    <li>Al-Khawarizmi (780-850): wrote the first major treatise on Algebra titled "Al-jabr wal-muqabaleh"</li>
-    </ul>
-    
-    <h2 id="science-heading">Science discoveries</h2>
-    <ul>
-        <li>1543 – Copernicus: discovered the heliocentric model of the solar system.
-</li>
-        <li>1672 – Sir Isaac Newton: discovers that white light is a spectrum of a mixture of distinct coloured rays.</li>
-    </ul>
-    
-    <a href="https://en.wikipedia.org/wiki/Timeline_of_scientific_discoveries">Read about more discoveries on Wikipedia.</a>
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script>
-    var math = $("#math-heading");
-    math.text(math.text() + " !!!!!!!!!!!!!!!!!!");
-    var science = $("#science-heading");
-    science.text(science.text() + " __________________")
-    
-    </script>
-    </body>
+<html> 
+  <head>
+    <title>Zach's Paint Project </title> 
+  </head>
+  <body>
+	<!--This draws the canvas on the webpage -->
+    <canvas id="mycanvas"></canvas> 
+  </body>
+ 
+  <!-- Include the processing.js library -->
+  <!-- See https://khanacademy.zendesk.com/hc/en-us/articles/202260404-What-parts-of-ProcessingJS-does-Khan-Academy-support- for differences -->
+  <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
+  <script>
+  var programCode = function(processingInstance) {
+    with (processingInstance) {
+      size(400, 400); 
+      frameRate(30);
+        
+      // Paste code from Khan Academy here:
+      background(0, 0, 0);
+var speed = 1;
+
+var generator =  new Random(speed);
+var standardDeviation = 5;
+var mean = 0;
+
+var Walker = function(){
+    this.x = random(width);
+    this.y = random(height);
+};
+
+
+Walker.prototype.display = function(){
+    var randomH = random(0,255);
+    var randomG = random(0,255);
+    var randomI = random(0,255);
+
+    stroke(randomH, randomG, randomI);
+    fill(0, 0, 0);
+    var borderX = constrain(this.x, 0, width);
+    var borderY = constrain(this.y, 0, height);
+    rect(borderX,borderY,10,10);
+};
+
+  Walker.prototype.walk = function() {
+        var numX = generator.nextGaussian();
+    var numY = generator.nextGaussian();
+    var xStepSize = standardDeviation  * numX + mean;
+    var yStepSize = standardDeviation * numY + mean;
+  
+    this.x += xStepSize;
+    this.y += yStepSize;
+};
+var walker = new Walker();
+
+draw = function() {
+     walker.walk();
+     walker.display();
+};
+
+    }};
+
+  // Get the canvas that ProcessingJS will use
+  var canvas = document.getElementById("mycanvas"); 
+  // Pass the function to ProcessingJS constructor
+  var processingInstance = new Processing(canvas, programCode); 
+  </script>
 </html>
